@@ -155,7 +155,7 @@
 
         <div class="section-divider" aria-hidden="true"></div>
 
-        <section class="rsvp-section reveal" id="rsvp" aria-label="Kelishni tasdiqlash" data-i18n-attr="aria-label:ariaRsvp" hidden>
+        <section class="rsvp-section reveal" id="rsvp" aria-label="Kelishni tasdiqlash" data-i18n-attr="aria-label:ariaRsvp">
           <h2 class="rsvp-title" data-i18n="rsvpTitle">Kelishingizni tasdiqlang</h2>
           <p class="rsvp-lead" data-i18n="rsvpLead">Stollarni to'g'ri tayyorlashimiz uchun, iltimos, javobingizni yuboring.</p>
 
@@ -177,18 +177,6 @@
               </label>
             </fieldset>
 
-            <label class="rsvp-field" id="rsvpGuestsField">
-              <span data-i18n="rsvpGuestsLabel">Jami necha kishi kelasiz?</span>
-              <select name="guests">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-              </select>
-            </label>
-
             <label class="rsvp-field">
               <span data-i18n="rsvpNoteLabel">Tilak yoki izoh (ixtiyoriy)</span>
               <textarea name="note" rows="2" maxlength="300"></textarea>
@@ -199,6 +187,17 @@
             <button class="rsvp-submit" id="rsvpSubmit" type="submit" data-i18n="rsvpSubmit">Yuborish</button>
             <p class="rsvp-status" id="rsvpStatus" role="status" aria-live="polite"></p>
           </form>
+        </section>
+
+        <section class="wishes-section reveal" aria-label="Tilak g'oyalari" data-i18n-attr="aria-label:ariaWishes">
+          <h2 class="wishes-title" data-i18n="wishesTitle">Kelgan tilaklar</h2>
+
+          <ul class="wishes-list">
+            <li class="wish"><span class="wish-author" data-i18n="wishAuthor">Anonim</span><span class="wish-text" data-i18n="wish1">Yoshlar, bir-biringizga hamisha tayanch bo'ling. Oilangiz baxt va mehrga to'la bo'lsin!</span></li>
+            <li class="wish"><span class="wish-author" data-i18n="wishAuthor">Anonim</span><span class="wish-text" data-i18n="wish2">Sizlarga uzoq umr, mustahkam sevgi va farovon turmush tilayman. Har kuningiz bayramdek o'tsin!</span></li>
+            <li class="wish"><span class="wish-author" data-i18n="wishAuthor">Anonim</span><span class="wish-text" data-i18n="wish3">Baxtli bo'ling, bir-biringizni asrang. Xonadoningizga doim tinchlik va quvonch yor bo'lsin!</span></li>
+            <li class="wish"><span class="wish-author" data-i18n="wishAuthor">Anonim</span><span class="wish-text" data-i18n="wish4">Ota-onalaringizning duosi, yaqinlaringizning tilagi sizlar bilan bo'lsin. Yangi hayotingiz muborak!</span></li>
+          </ul>
         </section>
 
         <div class="section-divider" aria-hidden="true"></div>

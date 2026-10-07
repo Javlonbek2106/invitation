@@ -9,8 +9,8 @@ const backgroundMusic = document.getElementById("backgroundMusic");
 
 const WEDDING_TIME = "18:00";
 const targetWeddingDate = new Date(`2026-11-08T${WEDDING_TIME}:00+05:00`).getTime();
-// Cloudflare Worker manzili (worker/rsvp-worker.js). Bo'sh bo'lsa RSVP bo'limi ko'rinmaydi.
-const RSVP_ENDPOINT = "";
+// RSVP javoblari yuboriladigan Netlify Function (netlify/functions/rsvp.mjs).
+const RSVP_ENDPOINT = "/.netlify/functions/rsvp";
 // Aloqa telefoni, masalan "+998901234567". Bo'sh bo'lsa aloqa qatori ko'rinmaydi.
 const CONTACT_PHONE = "";
 const OPENING_DURATION_MS = 1000;
@@ -35,6 +35,7 @@ const LOCALES = {
     ariaVenueDetails: "Место проведения",
     ariaCountdown: "Обратный отсчет",
     ariaRsvp: "Подтверждение присутствия",
+    ariaWishes: "Идеи для пожеланий",
     envelopeTopNote:
       "<span class=\"flap-note-top\">ВЫ</span><span class=\"flap-note-middle\">ПРИГЛАШАЕМ</span><span class=\"flap-note-script\">вас на свадьбу</span>",
     withLove: "с любовью,",
@@ -68,7 +69,6 @@ const LOCALES = {
     rsvpAttendingLegend: "Вы придёте?",
     rsvpYes: "Обязательно приду",
     rsvpNo: "К сожалению, не смогу",
-    rsvpGuestsLabel: "Сколько человек придёт (включая вас)?",
     rsvpNoteLabel: "Пожелание или комментарий (необязательно)",
     rsvpSubmit: "Отправить",
     rsvpSending: "Отправляем…",
@@ -76,6 +76,12 @@ const LOCALES = {
     rsvpSuccessNo: "Спасибо за ответ. Жаль, что вас не будет с нами.",
     rsvpNameRequired: "Пожалуйста, укажите ваше имя.",
     rsvpError: "Не удалось отправить. Попробуйте ещё раз.",
+    wishesTitle: "Полученные пожелания",
+    wishAuthor: "Аноним",
+    wish1: "Молодые, всегда будьте опорой друг для друга. Пусть в вашей семье царят счастье и тепло!",
+    wish2: "Желаю вам долгих лет, крепкой любви и благополучия. Пусть каждый ваш день будет как праздник!",
+    wish3: "Будьте счастливы и берегите друг друга. Пусть в вашем доме всегда живут мир и радость!",
+    wish4: "Пусть с вами будут молитвы родителей и добрые пожелания близких. Поздравляем с началом новой жизни!",
     countdownTitle: "Считаем каждое мгновение",
     unitDays: "Дней",
     unitHours: "Часов",
@@ -101,6 +107,7 @@ const LOCALES = {
     ariaVenueDetails: "To'y manzili",
     ariaCountdown: "Orqaga sanoq",
     ariaRsvp: "Kelishni tasdiqlash",
+    ariaWishes: "Tilak g'oyalari",
     envelopeTopNote:
       "<span class=\"flap-note-top\">SIZ</span><span class=\"flap-note-middle\">TO'YIMIZGA</span><span class=\"flap-note-script\">taklif qilamiz</span>",
     withLove: "muhabbat ila,",
@@ -134,7 +141,6 @@ const LOCALES = {
     rsvpAttendingLegend: "Kelasizmi?",
     rsvpYes: "Albatta kelaman",
     rsvpNo: "Afsuski, kela olmayman",
-    rsvpGuestsLabel: "Jami necha kishi kelasiz?",
     rsvpNoteLabel: "Tilak yoki izoh (ixtiyoriy)",
     rsvpSubmit: "Yuborish",
     rsvpSending: "Yuborilmoqda…",
@@ -142,6 +148,12 @@ const LOCALES = {
     rsvpSuccessNo: "Javobingiz uchun rahmat. Sizni o'rtamizda ko'ra olmasligimiz afsus.",
     rsvpNameRequired: "Iltimos, ismingizni yozing.",
     rsvpError: "Yuborib bo'lmadi. Iltimos, qayta urinib ko'ring.",
+    wishesTitle: "Kelgan tilaklar",
+    wishAuthor: "Anonim",
+    wish1: "Yoshlar, bir-biringizga hamisha tayanch bo'ling. Oilangiz baxt va mehrga to'la bo'lsin!",
+    wish2: "Sizlarga uzoq umr, mustahkam sevgi va farovon turmush tilayman. Har kuningiz bayramdek o'tsin!",
+    wish3: "Baxtli bo'ling, bir-biringizni asrang. Xonadoningizga doim tinchlik va quvonch yor bo'lsin!",
+    wish4: "Ota-onalaringizning duosi, yaqinlaringizning tilagi sizlar bilan bo'lsin. Yangi hayotingiz muborak!",
     countdownTitle: "Har lahzani sanayapmiz",
     unitDays: "Kun",
     unitHours: "Soat",
@@ -531,19 +543,11 @@ function setRsvpStatus(key, kind) {
 function setupRsvp() {
   const section = document.getElementById("rsvp");
   const form = document.getElementById("rsvpForm");
-  if (!section || !form || !RSVP_ENDPOINT) {
+  if (!section || !form) {
     return;
   }
 
   const submitButton = document.getElementById("rsvpSubmit");
-  const guestsField = document.getElementById("rsvpGuestsField");
-  section.hidden = false;
-
-  form.addEventListener("change", (event) => {
-    if (event.target.name === "attending") {
-      guestsField.hidden = event.target.value === "no";
-    }
-  });
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -560,7 +564,6 @@ function setupRsvp() {
     const payload = {
       name,
       attending,
-      guests: attending ? Number(data.get("guests")) : 0,
       note: String(data.get("note") || "").trim(),
       website: String(data.get("website") || ""),
       lang: currentLanguage,
@@ -580,7 +583,6 @@ function setupRsvp() {
       }
 
       form.reset();
-      guestsField.hidden = false;
       form.classList.add("is-sent");
       setRsvpStatus(attending ? "rsvpSuccessYes" : "rsvpSuccessNo", "success");
     } catch (_error) {
