@@ -1,0 +1,7 @@
+name = "wedding-rsvp"
+main = "rsvp-worker.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+# Sayt joylashadigan manzil (oxirida "/" siz). Sinash uchun vaqtincha "*" qo'yish mumkin.
+ALLOWED_ORIGIN = "https://example.com"
