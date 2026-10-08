@@ -7,8 +7,8 @@ const languageButtons = document.querySelectorAll(".language-option");
 const musicToggleBtn = document.getElementById("musicToggleBtn");
 const backgroundMusic = document.getElementById("backgroundMusic");
 
-const WEDDING_TIME = "18:00";
-const targetWeddingDate = new Date(`2026-11-08T${WEDDING_TIME}:00+05:00`).getTime();
+const WEDDING_TIME = "19:00";
+const targetWeddingDate = new Date(`2026-11-07T${WEDDING_TIME}:00+05:00`).getTime();
 // RSVP javoblari yuboriladigan Netlify Function (netlify/functions/rsvp.mjs).
 const RSVP_ENDPOINT = "/.netlify/functions/rsvp";
 // Aloqa telefoni, masalan "+998901234567". Bo'sh bo'lsa aloqa qatori ko'rinmaydi.
@@ -25,11 +25,11 @@ const ONE_DAY_MS = ONE_HOUR_MS * 24;
 const LOCALES = {
   ru: {
     pageTitle: "Джамшидбек и Чарос | Свадебное приглашение",
-    metaDescription: "Свадебное приглашение Джамшидбека и Чарос на 8 ноября 2026 года.",
+    metaDescription: "Свадебное приглашение Джамшидбека и Чарос на 7 ноября 2026 года.",
     ariaIntro: "Конверт с приглашением",
     ariaEnvelope: "Запечатанный бумажный конверт",
     ariaWeddingDate: "Дата свадьбы",
-    ariaCalendar: "Календарь ноября 2026 с выделенным 8 ноября",
+    ariaCalendar: "Календарь ноября 2026 с выделенным 7 ноября",
     ariaWeddingDay: "День свадьбы",
     ariaOrnamentHero: "Традиционная страница с именами молодоженов",
     ariaVenueDetails: "Место проведения",
@@ -56,9 +56,9 @@ const LOCALES = {
     weekdaySun: "ВС",
     eventTimeLabel: "Начало в",
     locationTitle: "Место проведения",
-    venueName: "ресторан ТУРКИСТОН",
-    venueAddress: "Ташкентская область",
-    venueLandmark: "Ресторан: Туркистон.",
+    venueName: "Ресторан «Гавхар»",
+    venueAddress: "г. Ташкент, Чиланзарский район, 19-й квартал, улица Заргарлик",
+    venueLandmark: "Ориентир: перекрёсток текстильного магазина «Айген».",
     mapLinkYandex: "Яндекс Карты",
     mapLinkGoogle: "Google Maps",
     contactLabel: "Если есть вопросы:",
@@ -97,11 +97,11 @@ const LOCALES = {
   },
   uz: {
     pageTitle: "Jamshidbek va Charos | To'y taklifnomasi",
-    metaDescription: "Jamshidbek va Charosning 2026-yil 8-noyabrdagi to'y taklifnomasi.",
+    metaDescription: "Jamshidbek va Charosning 2026-yil 7-noyabrdagi to'y taklifnomasi.",
     ariaIntro: "Taklifnoma konverti",
     ariaEnvelope: "Muhrlangan qog'oz konvert",
     ariaWeddingDate: "To'y sanasi",
-    ariaCalendar: "2026-yil noyabr kalendari, 8-noyabr belgilangan",
+    ariaCalendar: "2026-yil noyabr kalendari, 7-noyabr belgilangan",
     ariaWeddingDay: "To'y kuni",
     ariaOrnamentHero: "Yoshlar ismlari tushirilgan an'anaviy sahifa",
     ariaVenueDetails: "To'y manzili",
@@ -109,7 +109,7 @@ const LOCALES = {
     ariaRsvp: "Kelishni tasdiqlash",
     ariaWishes: "Tilak g'oyalari",
     envelopeTopNote:
-      "<span class=\"flap-note-top\">SIZ</span><span class=\"flap-note-middle\">TO'YIMIZGA</span><span class=\"flap-note-script\">taklif qilamiz</span>",
+      "<span class=\"flap-note-top\">SIZNi</span><span class=\"flap-note-middle\">TO'YIMIZGA</span><span class=\"flap-note-script\">taklif qilamiz</span>",
     withLove: "muhabbat ila,",
     signatureNames: "Jamshidbek\u00a0va\u00a0Charos",
     ornamentNames:
@@ -128,9 +128,9 @@ const LOCALES = {
     weekdaySun: "YA",
     eventTimeLabel: "Boshlanish vaqti",
     locationTitle: "To'y manzili",
-    venueName: "Turkiston restorani",
-    venueAddress: "Toshkent viloyati",
-    venueLandmark: "To'yxona: Turkiston restorani.",
+    venueName: "Gavhar restorani",
+    venueAddress: "Toshkent shahar, Чилонзор 19 мавзе, Заргарлик кўчаси",
+    venueLandmark: "Orientir: “Aygen” tekstil chorrahasi",
     mapLinkYandex: "Yandex xaritasi",
     mapLinkGoogle: "Google Maps",
     contactLabel: "Savollar bo'lsa:",
